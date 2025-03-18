@@ -1,14 +1,13 @@
 "use client";
 import MatchSettings from "@/components/MatchSettings";
-import QRCodeDisplay from "@/components/QRCodeDisplay";
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import Link from 'next/link';
 
 export default function CreateMatch() {
   const [matchId, setMatchId] = useState<string | null>(null);
 
   const handleSettingsSubmit = () => {
-    const newMatchId = uuidv4();
+    const newMatchId = Math.random().toString(36).substring(2, 15);
     setMatchId(newMatchId);
   };
 
@@ -17,9 +16,13 @@ export default function CreateMatch() {
       <h1 className="text-3xl font-bold mb-8">Create a Match</h1>
       {matchId ? (
         <div className="flex flex-col items-center">
-          <QRCodeDisplay matchId={matchId} />
-          <p className="mt-4">
-            Share this link: <a href={`/match/${matchId}`}>{`/match/${matchId}`}</a>
+          <p className="text-lg mb-4">
+            Match ID: 
+              <span className="font-bold">
+                <Link href={`/match/${matchId}`}>
+                  {matchId}
+                </Link>
+              </span>
           </p>
         </div>
       ) : (
