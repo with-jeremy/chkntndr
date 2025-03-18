@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.5",
     "next": "15.2.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-tinder-card": "^1.6.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

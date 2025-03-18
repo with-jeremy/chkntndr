@@ -8,11 +8,11 @@ export default function JoinMatch() {
   const router = useRouter();
 
   const handleJoinMatch = () => {
-    router.push(`/match/${matchId}`);
+    router.push(`/match/${matchId}?user=joiner`);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem-5rem)] bg-gray-100 px-6 py-12">
       <h1 className="text-3xl font-bold mb-8">Join a Match</h1>
       <input
         type="text"
