@@ -2,10 +2,7 @@
 import React from "react";
 import TinderCard from "react-tinder-card";
 
-interface Restaurants {
-    id: string;
-   
-}
+import { Restaurants } from "@/types/global";
 
 interface SwipeCardStackProps {
     restaurants: Restaurants[];
@@ -40,7 +37,7 @@ function SwipeCardStack({ restaurants, onSwipe }: SwipeCardStackProps) {
                             <span className="text-gray-500">Image Placeholder</span>
                         </div>
                         <div className="p-4">
-                            <h2 className="text-2xl font-bold mb-2">{restaurant.id}</h2>
+                            <h2 className="text-2xl font-bold mb-2">{restaurant.name}</h2>
                             <p className="text-gray-700 text-base mb-2">{restaurant.id}</p>
                             <p className="text-gray-700 text-base mb-2">{restaurant.id}</p>
                             <div className="flex items-center">

@@ -5,11 +5,12 @@ import { nearbySearch } from "@/utils/api";
 
 export async function fetchPlaces() {
   try {
-    const ids = await nearbySearch(37.7749, -122.4194, 5000); // Static location: San Francisco
+    const data = await nearbySearch(37.7749, -122.4194, 5000); // Static location: San Francisco
     // Map the place IDs to the desired object structure
-    return ids.map((id: string) => ({
-      id,
-     
+    return data.map((restaurant) => ({
+      id: restaurant.place_id,
+      name: restaurant.name,
+      address: restaurant.vicinity,
     }));
   } catch {
     throw new Error("qqFailed to fetch places.");

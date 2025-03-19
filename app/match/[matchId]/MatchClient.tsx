@@ -1,3 +1,68 @@
+/**
+ * MatchClient component handles the logic for a swipe-based matching system
+ * where two users can swipe on a list of restaurants to find a mutual match.
+ * 
+ * @component
+ * @param {MatchClientProps} props - The props for the MatchClient component.
+ * @param {string} props.matchId - The unique identifier for the match session.
+ * 
+ * @returns {JSX.Element} The rendered MatchClient component.
+ * 
+ * @remarks
+ * - This component uses localStorage to persist state and synchronize data across browser tabs.
+ * - It fetches a list of restaurants and allows two users to swipe through them.
+ * - If both users swipe "yes" on the same restaurant, it is considered a match.
+ * 
+ * @example
+ * ```tsx
+ * <MatchClient matchId="12345" />
+ * ```
+ * 
+ * @interface Restaurants
+ * Represents a restaurant object.
+ * @property {string} id - The unique identifier for the restaurant.
+ * 
+ * @interface MatchClientProps
+ * Represents the props for the MatchClient component.
+ * @property {string} matchId - The unique identifier for the match session.
+ * 
+ * @function handleSwipe
+ * Handles the swipe action for the current user.
+ * @param {boolean} direction - The swipe direction (true for "yes", false for "no").
+ * 
+ * @remarks
+ * - Updates the swipe state for the current user.
+ * - Checks if there is a match between the two users.
+ * 
+ * @useEffect
+ * - Loads persisted state from localStorage on mount.
+ * - Fetches the list of restaurants and initializes swipe states.
+ * - Persists state to localStorage whenever key state variables change.
+ * - Listens for storage events to synchronize state across tabs.
+ * 
+ * @state {Restaurants[]} restaurants - The list of restaurants to swipe through.
+ * @state {(boolean | undefined)[]} user1Swipes - The swipe decisions of user 1.
+ * @state {(boolean | undefined)[]} user2Swipes - The swipe decisions of user 2.
+ * @state {number} user1Index - The current index of user 1 in the restaurant list.
+ * @state {number} user2Index - The current index of user 2 in the restaurant list.
+ * @state {boolean} user1Finished - Whether user 1 has finished swiping.
+ * @state {boolean} user2Finished - Whether user 2 has finished swiping.
+ * @state {Restaurants | null} match - The matched restaurant, if any.
+ * 
+ * @dependencies
+ * - `useState` and `useEffect` from React for state management and side effects.
+ * - `useSearchParams` from Next.js for retrieving query parameters.
+ * - `loadData` and `saveData` utilities for localStorage management.
+ * - `fetchPlaces` for fetching the list of restaurants.
+ * - `SwipeCardStack` component for rendering the swipeable cards.
+ * 
+ * @suggestions
+ * - Extract state management logic into a custom hook (e.g., `useMatchState`) to centralize and reuse logic.
+ * - Move localStorage persistence logic into a utility function or the custom hook to reduce duplication.
+ * - Consider using a context provider to manage shared state across components if this logic needs to be reused elsewhere.
+ * - Abstract the `handleSwipe` logic into a separate function or hook to simplify the component.
+ * - Use a centralized data-fetching utility to handle `fetchPlaces` and other API calls.
+ */
 "use client";
 
 import SwipeCardStack from "@/components/SwipeCardStack";

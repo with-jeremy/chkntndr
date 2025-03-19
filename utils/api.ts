@@ -89,10 +89,15 @@ export async function nearbySearch(lat: number, lng: number, radius: number) {
 
   const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
     method: 'POST',
+    mode: 'cors',
     headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': googleApiKey,
-      'X-Goog-FieldMask': 'places.id',
+      'X-Goog-FieldMask': ['places.id', 'places.name', 'places.vicinity'].join(','),
+      'X-Goog-PageSize': '5',
     },
     body: JSON.stringify({
       locationRestriction: {

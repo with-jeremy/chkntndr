@@ -20,6 +20,12 @@ export default function Home() {
           Create Match
         </Link>
         <Link
+          href="/init-match"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Init Match
+        </Link>
+        <Link
           href="/join-match"
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
