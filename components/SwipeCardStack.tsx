@@ -16,6 +16,7 @@ function SwipeCardStack({ restaurants, onSwipe }: SwipeCardStackProps) {
     const handleSwipe = (direction: string, restaurant: Restaurants) => {
         if (direction === "right") {
             onSwipe(true, restaurant);
+            console.log("Swiped right on:", restaurant.id);
         } else if (direction === "left") {
             onSwipe(false, restaurant);
         }
@@ -46,12 +47,6 @@ function SwipeCardStack({ restaurants, onSwipe }: SwipeCardStackProps) {
                                 <span className="text-yellow-500 mr-1">Rating:</span>
                                 <span>{restaurant.id}</span>
                             </div>
-                            {restaurant.id && (
-                                <div className="flex items-center">
-                                    <span className="text-gray-700 mr-1">Price Level:</span>
-                                    <span>{"$".repeat(restaurant.id)}</span>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </TinderCard>

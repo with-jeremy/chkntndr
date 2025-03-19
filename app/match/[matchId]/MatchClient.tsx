@@ -23,7 +23,7 @@ export default function MatchClient({ matchId }: MatchClientProps) {
   const [user2Index, setUser2Index] = useState(0);
   const [user1Finished, setUser1Finished] = useState(false);
   const [user2Finished, setUser2Finished] = useState(false);
-  const [match, setMatch] = useState<Restaurant | null>(null);
+  const [match, setMatch] = useState<Restaurants | null>(null);
   const searchParams = useSearchParams();
   const user = searchParams.get("user") || "joiner"; 
 
@@ -37,7 +37,7 @@ export default function MatchClient({ matchId }: MatchClientProps) {
       user1Finished: boolean;
       user2Finished: boolean;
       matchId: string;
-      match: Restaurant | null;
+      match: Restaurants | null;
     }>(STORAGE_KEY);
 
     fetchPlaces().then((fetchedRestaurants: Restaurants[]) => {
@@ -67,6 +67,8 @@ export default function MatchClient({ matchId }: MatchClientProps) {
 
   // Persist state to localStorage whenever key state changes
   useEffect(() => {
+    console.log("Persisting user1Swipes:", JSON.stringify(user1Swipes, null, 2));
+    console.log("Persisting user2Swipes:", JSON.stringify(user2Swipes, null, 2));
     const data = {
       user1Swipes,
       user2Swipes,
@@ -116,21 +118,35 @@ export default function MatchClient({ matchId }: MatchClientProps) {
       const newUser2Swipes = [...user2Swipes];
       newUser2Swipes[currentIndex] = direction;
       setUser2Swipes(newUser2Swipes);
+      
       if (currentIndex + 1 >= restaurants.length) {
         setUser2Finished(true);
       } else {
         setUser2Index(currentIndex + 1);
       }
     }
+
+    // Check for a match
+    
     if (
       (user === "creator" ? direction : user1Swipes[currentIndex]) === true &&
       (user === "joiner" ? direction : user2Swipes[currentIndex]) === true
     ) {
       setMatch(restaurants[currentIndex]);
-      return;
     }
   };
-
+  if (match) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-green-100">
+      <div className="flex flex-col items-center justify-center bg-green-100">
+        <h1 className="text-4xl font-bold text-green-800 mb-4">It is a Match!</h1>
+        <h2 className="text-2xl">{match.id}</h2>
+        <h2 className="text-2xl">{match.id}:{match.id}</h2>
+        <p>{match.id}</p>
+        </div>
+        </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
       <h1 className="text-3xl font-bold mb-4">Match ID: {matchId}</h1>

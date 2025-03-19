@@ -4,18 +4,18 @@ import MatchSettings from "@/components/MatchSettings";
 import { useState } from "react";
 
 type MatchSettings = {
-  matchId,
-  lat,
-  lng,
-  radius,
-  pricing,
-  category,
+  matchId: string;
+  lat: number;
+  lng: number;
+  radius: number;
+  pricing: string[];
+  category: string;
 };
 
 
 export default function CreateMatchPage() {
 
-  const [matchSettings, setMatchSettings] = useState<MatchSettings[]>([]);
+  const [matchSettings, setMatchSettings] = useState<MatchSettings | null>(null);
   const handleMatchSettingsSubmit = (matchSettings: MatchSettings) => {
     console.log("Received match settings:", matchSettings);
     
@@ -24,9 +24,9 @@ export default function CreateMatchPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem-5rem)] bg-gray-100 px-6 py-12">
-      {!matchSettings.matchId ? (<h1 className="text-3xl font-bold mb-8">Create a Match</h1>) :
+      {!matchSettings?.matchId ? (<h1 className="text-3xl font-bold mb-8">Create a Match</h1>) :
       (<h1 className="text-3xl font-bold mb-8">Match Initiated!</h1>)}
-      {matchSettings.matchId ? (
+      {matchSettings?.matchId ? (
         <div className="flex flex-col items-center">
           <Link
             href={`/match/${matchSettings.matchId}?user=creator`}

@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 type MatchSettings = {
-  matchId,
-  lat,
-  lng,
-  radius,
-  pricing,
-  category,
+  matchId: string;
+  lat: number;
+  lng: number;
+  radius: number;
+  pricing: string[];
+  category: string;
 };
 
 export default function MatchSettings({ onSubmit }: { onSubmit: (settings: MatchSettings) => void }) {

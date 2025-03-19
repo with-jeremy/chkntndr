@@ -83,12 +83,16 @@ export const getMockRestaurants = (): Restaurant[] => {
 
 export async function nearbySearch(lat: number, lng: number, radius: number) {
   const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  if (!googleApiKey) {
+    throw new Error("Google API key is not defined in environment variables.");
+  }
+
   const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': googleApiKey,
-      'X-Goog-FieldMask': 'places.id',
+      'X-Goog-FieldMask': 'place_id',
     },
     body: JSON.stringify({
       locationRestriction: {
