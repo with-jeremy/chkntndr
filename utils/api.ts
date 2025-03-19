@@ -92,7 +92,7 @@ export async function nearbySearch(lat: number, lng: number, radius: number) {
     headers: {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': googleApiKey,
-      'X-Goog-FieldMask': 'place_id',
+      'X-Goog-FieldMask': 'places.id',
     },
     body: JSON.stringify({
       locationRestriction: {

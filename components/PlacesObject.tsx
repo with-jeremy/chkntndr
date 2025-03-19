@@ -9,17 +9,17 @@ export async function fetchPlaces() {
     // Map the place IDs to the desired object structure
     return ids.map((id: string) => ({
       id,
-      
+     
     }));
   } catch {
-    throw new Error("Failed to fetch places.");
+    throw new Error("qqFailed to fetch places.");
   }
 }
 
 export default function PlacesObject() {
   interface Place {
     id: string;
-    
+
   }
 
   const [places, setPlaces] = useState<Place[]>([]);
