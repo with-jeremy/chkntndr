@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlacesList from "@/components/PlacesList";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
           Join Match
         </Link>
       </div>
+      <PlacesList />
     </section>
   );
 }

@@ -4,10 +4,7 @@ import TinderCard from "react-tinder-card";
 
 interface Restaurants {
     id: string;
-    name: string;
-    address: string;
-    rating: number;
-    priceLevel?: number;
+   
 }
 
 interface SwipeCardStackProps {
@@ -32,27 +29,27 @@ function SwipeCardStack({ restaurants, onSwipe }: SwipeCardStackProps) {
                     className="absolute w-full h-full swipe-target"
                     onSwipe={(dir) => handleSwipe(dir, restaurant)}
                     preventSwipe={["up", "down"]}
-                    swipeThreshold={11} // Lowered for smoother swiping
+                    swipeThreshold={0.1} // Lowered for smoother swiping
                     flickOnSwipe={true} // Ensures the card flicks off the screen
                     swipeRequirementType="position"
                 >
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden user-select-none">
                         {/* Replace with an actual image if available */}
                         <div className="h-48 bg-gray-200 flex items-center justify-center">
                             <span className="text-gray-500">Image Placeholder</span>
                         </div>
                         <div className="p-4">
-                            <h2 className="text-2xl font-bold mb-2">{restaurant.name}</h2>
-                            <p className="text-gray-700 text-base mb-2">{restaurant.address}</p>
+                            <h2 className="text-2xl font-bold mb-2">{restaurant.id}</h2>
+                            <p className="text-gray-700 text-base mb-2">{restaurant.id}</p>
                             <p className="text-gray-700 text-base mb-2">{restaurant.id}</p>
                             <div className="flex items-center">
                                 <span className="text-yellow-500 mr-1">Rating:</span>
-                                <span>{restaurant.rating}</span>
+                                <span>{restaurant.id}</span>
                             </div>
-                            {restaurant.priceLevel && (
+                            {restaurant.id && (
                                 <div className="flex items-center">
                                     <span className="text-gray-700 mr-1">Price Level:</span>
-                                    <span>{"$".repeat(restaurant.priceLevel)}</span>
+                                    <span>{"$".repeat(restaurant.id)}</span>
                                 </div>
                             )}
                         </div>

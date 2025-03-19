@@ -1,34 +1,44 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import MatchSettings from "@/components/MatchSettings";
+import { useState } from "react";
 
-export default function CreateMatch() {
-  const [matchId, setMatchId] = useState<string | null>(null);
-  const [testing, setTesting] = useState(false);
+type MatchSettings = {
+  matchId,
+  lat,
+  lng,
+  radius,
+  pricing,
+  category,
+};
 
-  const handleSettingsSubmit = (data: { testing: boolean }) => {
-    const newMatchId = Math.floor(100 + Math.random() * 900).toString();
-    setTesting(data.testing);
-    setMatchId(newMatchId);
+
+export default function CreateMatchPage() {
+
+  const [matchSettings, setMatchSettings] = useState<MatchSettings[]>([]);
+  const handleMatchSettingsSubmit = (matchSettings: MatchSettings) => {
+    console.log("Received match settings:", matchSettings);
+    
+    setMatchSettings(matchSettings);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem-5rem)] bg-gray-100 px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">Create a Match</h1>
-      {matchId ? (
+      {!matchSettings.matchId ? (<h1 className="text-3xl font-bold mb-8">Create a Match</h1>) :
+      (<h1 className="text-3xl font-bold mb-8">Match Initiated!</h1>)}
+      {matchSettings.matchId ? (
         <div className="flex flex-col items-center">
-          <p className="text-lg mb-4">
-            Match ID: 
-            <span className="font-bold">
-              <Link href={`/match/${matchId}?user=creator${testing ? "&testing=true" : ""}`}>
-                {matchId}
-              </Link>
-            </span>
-          </p>
+          <Link
+            href={`/match/${matchSettings.matchId}?user=creator`}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Join Match Id: {matchSettings.matchId}
+          </Link>
         </div>
       ) : (
-        <MatchSettings onSubmit={handleSettingsSubmit} />
+        <MatchSettings onSubmit={(matchSettings: MatchSettings) => {
+          handleMatchSettingsSubmit(matchSettings);
+        }} />
       )}
     </div>
   );

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LogProvider } from "@/contexts/LogContext"; // <-- added import
 import Nav from "@/components/Nav"; // Import Nav component
 
 const geistSans = Geist({
@@ -27,7 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
-        <LogProvider>
           <Nav /> {/* Add Nav component */}
           <main className="flex-grow bg-gray-50">
             <div className="min-h-[calc(100vh-5rem-5rem)]"> {/* Revert to inline height calculation */}
@@ -37,7 +35,6 @@ export default function RootLayout({
           <footer className="bg-gray-800 text-white text-center py-4">
             <p>&copy; 2025 ChknTndr. All rights reserved. Site by Jeremy@WithJeremy.com</p>
           </footer>
-        </LogProvider>
       </body>
     </html>
   );

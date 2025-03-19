@@ -80,3 +80,30 @@ export const getMockRestaurants = (): Restaurant[] => {
     },
   ];
 };
+
+export async function nearbySearch(lat: number, lng: number, radius: number) {
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': googleApiKey,
+      'X-Goog-FieldMask': 'places.id',
+    },
+    body: JSON.stringify({
+      locationRestriction: {
+        circle: {
+          center: {
+            latitude: lat,
+            longitude: lng,
+          },
+          radius: radius,
+        },
+      },
+      languageCode: 'en',
+    }),
+  });
+
+  const data = await response.json();
+  return data.places.slice(0, 5).map((place: { id: string }) => place.id);
+}
